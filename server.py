@@ -1,29 +1,22 @@
-from flask import Flask, request, jsonify
+import discord
 
-app = Flask(__name__)
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
 
-status = "Disconnected"
-text = ""
+@client.event
+async def on_ready():
+    print(f'Logged in as {client.user}')
+    print('------')
 
-@app.route('/connect', methods=['POST'])
-def connect():
-    global status
-    status = "Attached"
-    return jsonify({"status": status})
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
-@app.route('/status', methods=['GET'])
-def get_status():
-    return jsonify({"status": status})
+    # Respond with "hi" to any message
+    if message.content:
+        await message.channel.send('hi')
 
-@app.route('/text', methods=['POST'])
-def update_text():
-    global text
-    text = request.json.get('text', '')
-    return jsonify({"text": text})
-
-@app.route('/text', methods=['GET'])
-def get_text():
-    return jsonify({"text": text})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+# Replace 'your_bot_token' with your actual bot token
+client.run('your_bot_token')
