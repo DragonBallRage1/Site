@@ -19,4 +19,4 @@ async def on_message(message):
         await message.channel.send('hi')
 
 # Replace 'your_bot_token' with your actual bot token
-client.run('your_bot_token')
+client.run('MTI2MjMyNTA0ODAxMDczOTc1NA.GNuSH8.Y11qPsz_zuheMLYeVUFWyJnVXNx1cFv8DjnEHA')
